@@ -1,7 +1,9 @@
 import 'package:bloc_pattern_2/blocs/home/home_bloc.dart';
 import 'package:bloc_pattern_2/blocs/sing_in/singin_bloc.dart';
-import 'package:bloc_pattern_2/main.dart';
+import 'package:bloc_pattern_2/blocs/timer/timer_bloc.dart';
 import 'package:bloc_pattern_2/pages/singin/singin_page.dart';
+import 'package:bloc_pattern_2/pages/timer/timer_page.dart';
+import 'package:bloc_pattern_2/utilities/timer/ticker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,6 +16,11 @@ class Pages {
   static List<PageEntity> Routes() {
     return [
       PageEntity(
+        path: AppRoutes.Timer_Page,
+        page: const TimerPage(),
+        bloc: BlocProvider(create: (_) => TimerBloc(ticker: const Ticker())),
+      ),
+      PageEntity(
         path: AppRoutes.INITIAL,
         page: const HomePage(),
         bloc: BlocProvider(create: (_) => HomeBloc()),
@@ -21,7 +28,11 @@ class Pages {
       PageEntity(
         path: AppRoutes.Sing_in,
         page: const SinginPage(),
-        bloc: BlocProvider(create: (_) => SinginBloc(singinPage: '/sing_in')),
+        bloc: BlocProvider(
+          create: (_) => SinginBloc(
+            singinPage: '/sing_in',
+          ),
+        ),
       ),
     ];
   }
@@ -39,6 +50,7 @@ class Pages {
       var result = Routes().where((element) => element.path == settings.name);
 
       print('result : $result');
+      print('settings: $settings');
 
       // if (result.isNotEmpty) {
       //   bool deviceFirstOpen = Global.storageService.getDeviceFirstOpen();
@@ -54,9 +66,10 @@ class Pages {
       //   return MaterialPageRoute<void>(
       //       builder: (_) => result.first.page, settings: settings);
       // }
-
-      return MaterialPageRoute<void>(
-          builder: (_) => const HomePage(), settings: settings);
+      if (settings.name == '/') {
+        return MaterialPageRoute<void>(
+            builder: (_) => const HomePage(), settings: settings);
+      }
     }
     return MaterialPageRoute<void>(
         builder: (_) => const SinginPage(), settings: settings);

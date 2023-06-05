@@ -12,5 +12,5 @@ final class SinginPageState extends SinginState {
   const SinginPageState({required super.page});
 
   @override
-  String toString() => 'SinginPageState {page: $page}';
+  String toString() => 'SinginPageState {page: ${props.toList()}}';
 }
