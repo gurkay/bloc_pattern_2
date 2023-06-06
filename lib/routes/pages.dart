@@ -1,4 +1,5 @@
 import 'package:bloc_pattern_2/blocs/home/home_bloc.dart';
+import 'package:bloc_pattern_2/blocs/navigation/nav_drawer/nav_drawer_bloc.dart';
 import 'package:bloc_pattern_2/blocs/sing_in/singin_bloc.dart';
 import 'package:bloc_pattern_2/blocs/timer/timer_bloc.dart';
 import 'package:bloc_pattern_2/pages/singin/singin_page.dart';
@@ -15,6 +16,11 @@ class Pages {
 
   static List<PageEntity> Routes() {
     return [
+      PageEntity(
+        path: AppRoutes.INITIAL,
+        page: const HomePage(),
+        bloc: BlocProvider(create: (_) => NavDrawerBloc()),
+      ),
       PageEntity(
         path: AppRoutes.Timer_Page,
         page: const TimerPage(),
@@ -45,7 +51,7 @@ class Pages {
     return blocerList;
   }
 
-  static MaterialPageRoute GenerateRouteSettings(RouteSettings settings) {
+  static MaterialPageRoute? GenerateRouteSettings(RouteSettings settings) {
     if (settings.name != null) {
       var result = Routes().where((element) => element.path == settings.name);
 
@@ -71,8 +77,7 @@ class Pages {
             builder: (_) => const HomePage(), settings: settings);
       }
     }
-    return MaterialPageRoute<void>(
-        builder: (_) => const SinginPage(), settings: settings);
+    return null;
   }
 }
 

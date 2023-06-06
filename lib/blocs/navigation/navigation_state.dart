@@ -1,9 +1,28 @@
 part of 'navigation_bloc.dart';
 
-abstract class NavigationState {}
+class NavigationState extends Equatable {
+  final String page;
+  const NavigationState({required this.page});
 
-class HomePageState extends NavigationState {}
+  @override
+  List<Object> get props => [page];
+}
 
-class HomeDetailPageState extends NavigationState {}
+final class SinginPageState extends NavigationState {
+  const SinginPageState({required super.page});
 
-class TimerViewState extends NavigationState {}
+  @override
+  String toString() => 'SinginPageState {page: ${props.toList()}}';
+}
+
+class HomePageState extends NavigationState {
+  HomePageState({required super.page});
+}
+
+class HomeDetailPageState extends NavigationState {
+  HomeDetailPageState({required super.page});
+}
+
+class TimerViewState extends NavigationState {
+  TimerViewState({required super.page});
+}

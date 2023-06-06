@@ -15,10 +15,10 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Timer',
         theme: ThemeData(
-          primaryColor: const Color.fromRGBO(109, 234, 255, 1),
+          primaryColor: const Color.fromARGB(255, 4, 88, 121),
           colorScheme: const ColorScheme.light(
             brightness: Brightness.light,
-            primary: Color.fromRGBO(109, 234, 255, 1),
+            primary: Color.fromRGBO(4, 84, 99, 1),
             onPrimary: Colors.white,
             secondary: Color.fromRGBO(119, 204, 255, 1),
             onSecondary: Colors.lightBlue,
