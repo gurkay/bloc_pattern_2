@@ -119,7 +119,8 @@ class NavDrawerWidget extends StatelessWidget {
                   ? Colors.blue
                   : Colors.blueGrey,
             ),
-            onTap: () => _handleItemClick(context, data.item),
+            onTap: () =>
+                _handleItemClick(context, data.item ?? NavItem.page_one),
           ),
         ),
       );
