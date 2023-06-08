@@ -1,40 +1,42 @@
-import 'package:bloc_pattern_2/blocs/navigation/nav_drawer/nav_drawer_bloc.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/sing_in/singin_bloc.dart';
+import '../../blocs/bloc_exports.dart';
 import '../../routes/app_routes.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
+class InitialPage extends StatelessWidget {
+  const InitialPage({super.key});
   @override
   Widget build(BuildContext context) {
-    final singinBloc = BlocProvider.of<SinginBloc>(context);
-    return BlocBuilder<NavDrawerBloc, NavDrawerState>(
-      builder: (BuildContext context, NavDrawerState state) => Scaffold(
-        drawer: NavDrawerWidget('Gurkay BAŞYİĞİT', 'gunesebak@gmail.com'),
-        appBar: AppBar(
-          title: const Text('Home Page 1'),
-        ),
-        body: BlocListener<SinginBloc, SinginState>(
-          listener: (context, state) {
-            print('HomePage:::listener:::${state.page}');
-            Navigator.of(context).pushNamed(state.page);
-          },
-          child: Center(
-            child: Column(
-              children: [
-                Text(state.selectedItem.toString()),
-                ElevatedButton(
-                  onPressed: () {
-                    singinBloc.add(SinginPageEvent(page: AppRoutes.sing_in));
-                  },
-                  child: Text('Sing In'),
-                ),
-              ],
-            ),
+    final initialPageBloc = BlocProvider.of<InitialPageBloc>(context);
+    final pageOneBloc = BlocProvider.of<PageOneBloc>(context);
+    return Scaffold(
+      drawer: NavDrawerWidget('Gurkay BAŞYİĞİT', 'gunesebak@gmail.com'),
+      appBar: AppBar(
+        title: const Text('Initial Page'),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  pageOneBloc.add(NavigateToPageOneEvent());
+                  Navigator.pushNamed(context, AppRoutes.page_one);
+                },
+                child: const Text('Go Page One'),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  initialPageBloc.add(FirstInitialPageEvent());
+                  Navigator.pushNamed(context, AppRoutes.tasks_screen);
+                },
+                child: const Text('Go Tasks'),
+              ),
+            ],
           ),
         ),
       ),
@@ -102,14 +104,15 @@ class NavDrawerWidget extends StatelessWidget {
         ),
       );
   Widget _makeListItem(_NavigationItem data, NavDrawerState state) => Card(
-        color: data.item == state.selectedItem ? Colors.amber : Colors.pink,
+        color:
+            data.item == state.selectedItem ? Colors.amber : Colors.lightBlue,
         shape: const ContinuousRectangleBorder(borderRadius: BorderRadius.zero),
         // So we see the selected highlight
         borderOnForeground: true,
         elevation: 0,
         margin: EdgeInsets.zero,
-        child: Builder(
-          builder: (BuildContext context) => ListTile(
+        child: Builder(builder: (BuildContext context) {
+          return ListTile(
             title: Text(
               '${data.title}',
               style: TextStyle(
@@ -125,12 +128,14 @@ class NavDrawerWidget extends StatelessWidget {
                   ? Colors.blue
                   : Colors.blueGrey,
             ),
-            onTap: () =>
-                _handleItemClick(context, data.item ?? NavItem.page_one),
-          ),
-        ),
+            onTap: () {
+              _handleItemClick(context, data.item);
+            },
+          );
+        }),
       );
-  void _handleItemClick(BuildContext context, NavItem item) {
+  void _handleItemClick(BuildContext context, NavItem? item) {
+    print('NavDrawerWidget:::_handleItemClick:::> state: $item');
     BlocProvider.of<NavDrawerBloc>(context).add(NavigateToEvent(item));
     Navigator.pop(context);
   }

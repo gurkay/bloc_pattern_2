@@ -5,6 +5,10 @@ abstract class NavDrawerEvent {
 }
 
 class NavigateToEvent extends NavDrawerEvent {
-  final NavItem destination;
+  final NavItem? destination;
   NavigateToEvent(this.destination);
+
+  @override
+  String toString() =>
+      'toString:::NavigateToEvent:::> selectedItem $destination';
 }

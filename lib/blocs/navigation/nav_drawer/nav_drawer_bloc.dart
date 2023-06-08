@@ -14,11 +14,20 @@ enum NavItem {
 }
 
 class NavDrawerBloc extends Bloc<NavDrawerEvent, NavDrawerState> {
-  NavDrawerBloc() : super(const NavDrawerState(NavItem.page_one));
+  NavDrawerBloc() : super(const NavDrawerState(NavItem.page_one)) {
+    on<NavigateToEvent>(_onNavigateToEvent);
+  }
+
+  void _onNavigateToEvent(NavigateToEvent event, Emitter<NavDrawerState> emit) {
+    final state = this.state;
+    print('NavDrawerBloc:::_onNavigateToEvent:::> state: $state');
+    emit(NavDrawerState(event.destination));
+  }
 
   @override
   Stream<NavDrawerState> mapEventToState(NavDrawerEvent event) async* {
     if (event is NavigateToEvent) {
+      print('NavDrawerBloc:::mapEventToState:::> state: $state');
       if (event.destination != state.selectedItem) {
         yield NavDrawerState(event.destination);
       }

@@ -1,14 +1,10 @@
-import 'package:bloc_pattern_2/blocs/home/home_bloc.dart';
-import 'package:bloc_pattern_2/blocs/navigation/nav_drawer/nav_drawer_bloc.dart';
-import 'package:bloc_pattern_2/blocs/sing_in/singin_bloc.dart';
-import 'package:bloc_pattern_2/blocs/timer/timer_bloc.dart';
-import 'package:bloc_pattern_2/pages/singin/singin_page.dart';
-import 'package:bloc_pattern_2/pages/timer/timer_page.dart';
-import 'package:bloc_pattern_2/utilities/timer/ticker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../pages/home/home_page.dart';
+import '../blocs/bloc_exports.dart';
+import '../pages/initial/initial_page.dart';
+import '../pages/page_one/page_one.dart';
+import '../pages/page_two/page_two.dart';
+import '../screens/tasks/tasks_screen.dart';
 import 'app_routes.dart';
 
 class Pages {
@@ -18,27 +14,28 @@ class Pages {
     return [
       PageEntity(
         path: AppRoutes.INITIAL,
-        page: const HomePage(),
-        bloc: BlocProvider(create: (_) => NavDrawerBloc()),
-      ),
-      PageEntity(
-        path: AppRoutes.Timer_Page,
-        page: const TimerPage(),
-        bloc: BlocProvider(create: (_) => TimerBloc(ticker: const Ticker())),
+        page: InitialPage(),
+        bloc: BlocProvider(create: (_) => InitialPageBloc()),
       ),
       PageEntity(
         path: AppRoutes.INITIAL,
-        page: const HomePage(),
-        bloc: BlocProvider(create: (_) => HomeBloc()),
+        page: InitialPage(),
+        bloc: BlocProvider(create: (_) => NavDrawerBloc()),
       ),
       PageEntity(
-        path: AppRoutes.Sing_in,
-        page: const SinginPage(),
-        bloc: BlocProvider(
-          create: (_) => SinginBloc(
-            singinPage: '/sing_in',
-          ),
-        ),
+        path: AppRoutes.page_one,
+        page: PageOne(),
+        bloc: BlocProvider(create: (_) => PageOneBloc()),
+      ),
+      PageEntity(
+        path: AppRoutes.page_two,
+        page: PageTwo(),
+        bloc: BlocProvider(create: (_) => PageTwoBloc()),
+      ),
+      PageEntity(
+        path: AppRoutes.tasks_screen,
+        page: TasksScreen(),
+        bloc: BlocProvider(create: (_) => TasksBloc()),
       ),
     ];
   }
@@ -51,33 +48,38 @@ class Pages {
     return blocerList;
   }
 
-  static MaterialPageRoute? GenerateRouteSettings(RouteSettings settings) {
+  static MaterialPageRoute GenerateRouteSettings(RouteSettings settings) {
     if (settings.name != null) {
       var result = Routes().where((element) => element.path == settings.name);
-
       print('result : $result');
-      print('settings: $settings');
+      print('settings : $settings');
 
-      // if (result.isNotEmpty) {
-      //   bool deviceFirstOpen = Global.storageService.getDeviceFirstOpen();
-      //   if (result.first.path == AppRoutes.INITIAL && deviceFirstOpen) {
-      //     bool isLogin = Global.storageService.getIsLogin();
-      //     if (isLogin) {
-      //       return MaterialPageRoute<void>(
-      //           builder: (_) => HomePage(), settings: settings);
-      //     }
-      //     return MaterialPageRoute<void>(
-      //         builder: (_) => SinginPage(), settings: settings);
-      //   }
-      //   return MaterialPageRoute<void>(
-      //       builder: (_) => result.first.page, settings: settings);
-      // }
-      if (settings.name == '/') {
+      if (settings.name == AppRoutes.page_one) {
         return MaterialPageRoute<void>(
-            builder: (_) => const HomePage(), settings: settings);
+          builder: (_) => PageOne(),
+          settings: settings,
+        );
+      }
+
+      if (settings.name == AppRoutes.page_two) {
+        return MaterialPageRoute<void>(
+          builder: (_) => PageTwo(),
+          settings: settings,
+        );
+      }
+
+      if (settings.name == AppRoutes.tasks_screen) {
+        return MaterialPageRoute<void>(
+          builder: (_) => TasksScreen(),
+          settings: settings,
+        );
       }
     }
-    return null;
+
+    return MaterialPageRoute<void>(
+      builder: (_) => InitialPage(),
+      settings: settings,
+    );
   }
 }
 
