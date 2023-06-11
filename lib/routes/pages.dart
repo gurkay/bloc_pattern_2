@@ -76,6 +76,13 @@ class Pages {
       print('result : $result');
       print('settings : $settings');
 
+      if (settings.name == AppRoutes.INITIAL) {
+        return MaterialPageRoute<void>(
+          builder: (_) => InitialPage(),
+          settings: settings,
+        );
+      }
+
       if (settings.name == AppRoutes.splash_page) {
         return MaterialPageRoute<void>(
           builder: (_) => SplashPage(),

@@ -3,7 +3,6 @@ import 'package:bloc_pattern_2/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../blocs/bloc_exports.dart';
-import '../../routes/pages.dart';
 import '../../views/login/login_page.dart';
 
 class InitialPage extends StatefulWidget {
