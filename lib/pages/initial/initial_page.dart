@@ -33,55 +33,25 @@ class _InitialPageState extends State<InitialPage> {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-      value: _authenticationRepository,
-      child: BlocProvider(
-        create: (_) => AuthenticationBloc(
-          authenticationRepository: _authenticationRepository,
-          userRepository: _userRepository,
-        ),
-        child: const AppView(),
-      ),
-    );
-  }
-}
+    print('AppView:::');
 
-class AppView extends StatefulWidget {
-  const AppView({super.key});
-
-  @override
-  State<AppView> createState() => _AppViewState();
-}
-
-class _AppViewState extends State<AppView> {
-  final _navigatorKey = GlobalKey<NavigatorState>();
-
-  NavigatorState get _navigator => _navigatorKey.currentState!;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: _navigatorKey,
-      builder: (context, child) {
-        return BlocListener<AuthenticationBloc, AuthenticationState>(
-          listener: (context, state) {
-            switch (state.status) {
-              case AuthenticationStatus.authenticated:
-                Navigator.pushNamed(context, AppRoutes.home);
-              case AuthenticationStatus.unauthenticated:
-                _navigator.pushAndRemoveUntil<void>(
-                  LoginPage.route(),
-                  (route) => false,
-                );
-              case AuthenticationStatus.unknown:
-                Navigator.pushNamed(context, AppRoutes.page_two);
-                break;
-            }
-          },
-          child: child,
-        );
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+      listener: (context, state) {
+        print(state.status);
+        switch (state.status) {
+          case AuthenticationStatus.authenticated:
+            Navigator.pushNamed(context, AppRoutes.home);
+          case AuthenticationStatus.unauthenticated:
+            _navigator.pushAndRemoveUntil<void>(
+              LoginPage.route(),
+              (route) => false,
+            );
+          case AuthenticationStatus.unknown:
+            Navigator.pushNamed(context, AppRoutes.page_two);
+            break;
+        }
       },
-      onGenerateRoute: (_) => SplashPage.route(),
+      child: Text('${context} :: '),
     );
   }
 }
