@@ -1,3 +1,5 @@
+import 'package:bloc_pattern_2/pages/home/home_page.dart';
+import 'package:bloc_pattern_2/pages/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
 import '../blocs/bloc_exports.dart';
@@ -12,6 +14,26 @@ class Pages {
 
   static List<PageEntity> Routes() {
     return [
+      PageEntity(
+        path: AppRoutes.splash_page,
+        page: SplashPage(),
+        bloc: BlocProvider(
+          create: (_) => AuthenticationBloc(
+            authenticationRepository: AuthenticationRepository(),
+            userRepository: UserRepository(),
+          ),
+        ),
+      ),
+      PageEntity(
+        path: AppRoutes.INITIAL,
+        page: InitialPage(),
+        bloc: BlocProvider(
+          create: (_) => AuthenticationBloc(
+            authenticationRepository: AuthenticationRepository(),
+            userRepository: UserRepository(),
+          ),
+        ),
+      ),
       PageEntity(
         path: AppRoutes.INITIAL,
         page: InitialPage(),
@@ -53,6 +75,13 @@ class Pages {
       var result = Routes().where((element) => element.path == settings.name);
       print('result : $result');
       print('settings : $settings');
+
+      if (settings.name == AppRoutes.splash_page) {
+        return MaterialPageRoute<void>(
+          builder: (_) => SplashPage(),
+          settings: settings,
+        );
+      }
 
       if (settings.name == AppRoutes.page_one) {
         return MaterialPageRoute<void>(

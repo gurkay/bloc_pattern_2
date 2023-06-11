@@ -11,4 +11,5 @@ class AppRoutes {
   static const page_four = '/page_four';
   static const page_five = '/page_five';
   static const page_six = '/page_six';
+  static const splash_page = '/splash_page';
 }
