@@ -14,36 +14,36 @@ class Pages {
 
   static List<PageEntity> Routes() {
     return [
-      PageEntity(
-        path: AppRoutes.splash_page,
-        page: SplashPage(),
-        bloc: BlocProvider(
-          create: (_) => AuthenticationBloc(
-            authenticationRepository: AuthenticationRepository(),
-            userRepository: UserRepository(),
-          ),
-        ),
-      ),
-      PageEntity(
-        path: AppRoutes.INITIAL,
-        page: InitialPage(),
-        bloc: BlocProvider(
-          create: (_) => AuthenticationBloc(
-            authenticationRepository: AuthenticationRepository(),
-            userRepository: UserRepository(),
-          ),
-        ),
-      ),
-      PageEntity(
-        path: AppRoutes.INITIAL,
-        page: InitialPage(),
-        bloc: BlocProvider(create: (_) => InitialPageBloc()),
-      ),
-      PageEntity(
-        path: AppRoutes.INITIAL,
-        page: InitialPage(),
-        bloc: BlocProvider(create: (_) => NavDrawerBloc()),
-      ),
+      // PageEntity(
+      //   path: AppRoutes.splash_page,
+      //   page: SplashPage(),
+      //   bloc: BlocProvider(
+      //     create: (_) => AuthenticationBloc(
+      //       authenticationRepository: AuthenticationRepository(),
+      //       userRepository: UserRepository(),
+      //     ),
+      //   ),
+      // ),
+      // PageEntity(
+      //   path: AppRoutes.INITIAL,
+      //   page: InitialPage(),
+      //   bloc: BlocProvider(
+      //     create: (_) => AuthenticationBloc(
+      //       authenticationRepository: AuthenticationRepository(),
+      //       userRepository: UserRepository(),
+      //     ),
+      //   ),
+      // ),
+      // PageEntity(
+      //   path: AppRoutes.INITIAL,
+      //   page: InitialPage(),
+      //   bloc: BlocProvider(create: (_) => InitialPageBloc()),
+      // ),
+      // PageEntity(
+      //   path: AppRoutes.INITIAL,
+      //   page: InitialPage(),
+      //   bloc: BlocProvider(create: (_) => NavDrawerBloc()),
+      // ),
       PageEntity(
         path: AppRoutes.page_one,
         page: PageOne(),

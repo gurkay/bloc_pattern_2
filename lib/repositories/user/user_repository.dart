@@ -14,4 +14,9 @@ class UserRepository {
       () => _user = User(GUIDGen.generate()),
     );
   }
+
+  @override
+  String toString() {
+    return 'UserRepository ::: toString ::: _user : $_user';
+  }
 }

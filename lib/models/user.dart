@@ -9,4 +9,9 @@ class User extends Equatable {
   List<Object> get props => [id];
 
   static const empty = User('-');
+
+  @override
+  String toString() {
+    return 'User ::: toString ::: id : $id';
+  }
 }

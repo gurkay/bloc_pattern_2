@@ -19,13 +19,15 @@ class _AppState extends State<AppOne> {
 
   @override
   void initState() {
-    super.initState();
+    print('::: initState ::: ');
     _authenticationRepository = AuthenticationRepository();
     _userRepository = UserRepository();
+    super.initState();
   }
 
   @override
   void dispose() {
+    print('::: dispose ::: ');
     _authenticationRepository.dispose();
     super.dispose();
   }

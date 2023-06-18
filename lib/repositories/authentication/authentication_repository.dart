@@ -24,4 +24,9 @@ class AuthenticationRepository {
   }
 
   void dispose() => _controller.close();
+
+  @override
+  String toString() {
+    return 'AuthenticationRepository ::: toString ::: _controller : $_controller';
+  }
 }
