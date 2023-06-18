@@ -15,6 +15,6 @@ void main() {
       () async {
     final response = await loginService
         .login(LoginModel('eve.holt@reqres.in', 'cityslicka'));
-    expect(response?.token, isNotNull);
+    expect(response!.token, isNull);
   });
 }

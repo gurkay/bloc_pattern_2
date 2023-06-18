@@ -4,16 +4,14 @@ part 'token_model.g.dart';
 
 @JsonSerializable()
 class TokenModel {
-  final String? token;
+  final String token;
 
-  TokenModel({this.token});
+  TokenModel(this.token);
 
-  @override
   TokenModel fromJson(Map<String, dynamic> json) {
     return _$TokenModelFromJson(json);
   }
 
-  @override
   Map<String, dynamic>? toJson() {
     return _$TokenModelToJson(this);
   }

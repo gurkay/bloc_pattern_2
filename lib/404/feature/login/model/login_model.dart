@@ -9,12 +9,10 @@ class LoginModel {
 
   LoginModel(this.email, this.password);
 
-  @override
   LoginModel fromJson(Map<String, dynamic> json) {
     return _$LoginModelFromJson(json);
   }
 
-  @override
   Map<String, dynamic>? toJson() {
     return _$LoginModelToJson(this);
   }
