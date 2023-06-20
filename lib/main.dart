@@ -1,7 +1,6 @@
+import 'package:bloc_pattern_2/app_three.dart';
 import 'package:flutter/material.dart';
 
-import 'app_one.dart';
-
 void main() async {
-  runApp(const AppOne());
+  runApp(const AppThree());
 }

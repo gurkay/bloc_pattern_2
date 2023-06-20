@@ -1,20 +1,27 @@
 import 'package:bloc_pattern_2/404/feature/login/model/login_model.dart';
 import 'package:bloc_pattern_2/404/feature/login/service/login_service.dart';
+import 'package:bloc_pattern_2/404/product/model/token_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  late LoginService loginService;
+  late ILoginService loginService;
+  const String baseUrl = 'https://reqres.in/';
+  late TokenModel tokenModel;
 
   setUp(() {
-    loginService =
-        LoginService(Dio(BaseOptions(baseUrl: 'https://reqres.in/')));
+    loginService = LoginService(Dio(BaseOptions(baseUrl: baseUrl)));
   });
 
   test('Login Test email : eve.holt@reqres.in & password : cityslicka',
       () async {
     final response = await loginService
         .login(LoginModel('eve.holt@reqres.in', 'cityslicka'));
-    expect(response!.token, isNull);
+    tokenModel = TokenModel('');
+
+    print(
+        'login_test ::: test ::: response: ${tokenModel.fromJson(response).token}');
+
+    expect(tokenModel.fromJson(response).token, 'QpwL5tke4Pnpja7X4');
   });
 }
