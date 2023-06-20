@@ -30,17 +30,39 @@ class _LoginViewState extends State<LoginView> {
   }
 }
 
-class PasswordTextFormField extends StatelessWidget {
+class PasswordTextFormField extends StatefulWidget {
+  final TextEditingController? controller;
   const PasswordTextFormField({
     super.key,
+    this.controller,
   });
+
+  @override
+  State<PasswordTextFormField> createState() => _PasswordTextFormFieldState();
+}
+
+class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
+  final _obsureText = '*';
+  bool _isSecure = true;
+
+  void _changeLoading() {
+    setState(() {
+      _isSecure = !_isSecure;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const PagePadding.all(),
       child: TextFormField(
+        controller: widget.controller,
+        autofillHints: const [AutofillHints.password],
+        keyboardType: TextInputType.visiblePassword,
+        obscureText: _isSecure,
+        obscuringCharacter: _obsureText,
         decoration: const InputDecoration(
+          hintText: 'Password',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: 3,
@@ -64,6 +86,7 @@ class EmailTextFormField extends StatelessWidget {
       padding: const PagePadding.all(),
       child: TextFormField(
         decoration: const InputDecoration(
+          hintText: 'E-mail',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: 3,
