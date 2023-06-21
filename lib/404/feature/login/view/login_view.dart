@@ -19,7 +19,15 @@ class _LoginViewState extends State<LoginView> {
       create: (_) => LoginBloc(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Login View'),
+          title: BlocBuilder<LoginBloc, LoginState>(
+            builder: (context, state) {
+              return state.isLoading
+                  ? const CircularProgressIndicator(
+                      color: Colors.amberAccent,
+                    )
+                  : const SizedBox();
+            },
+          ),
         ),
         body: Form(
           key: _formKey,
@@ -27,14 +35,22 @@ class _LoginViewState extends State<LoginView> {
             children: [
               EmailTextFormField(controller: _emailController),
               PasswordTextFormField(controller: _passwordController),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    context.read<LoginBloc>().checkUser(
-                        _emailController.text, _passwordController.text);
-                  }
+              BlocBuilder<LoginBloc, LoginState>(
+                builder: (context, state) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        context.read<LoginBloc>().checkUser(
+                              _emailController.text,
+                              _passwordController.text,
+                            );
+                      }
+                    },
+                    child: state.loginModel?.email == null
+                        ? const Text('Submit')
+                        : Text('Submit - ${state.loginModel?.email}'),
+                  );
                 },
-                child: const Text('Sent'),
               ),
             ],
           ),

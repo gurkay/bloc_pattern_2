@@ -2,7 +2,12 @@ import 'package:bloc_pattern_2/404/feature/login/view/login_view.dart';
 import 'package:bloc_pattern_2/pages/home/home_page.dart';
 import 'package:bloc_pattern_2/pages/splash/splash_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../404/feature/login/bloc/login_bloc.dart';
+import '../blocs/page_one/page_one_bloc.dart';
+import '../blocs/page_two/page_two_bloc.dart';
+import '../blocs/tasks/tasks_bloc.dart';
 import '../pages/initial/initial_page.dart';
 import '../pages/page_one/page_one.dart';
 import '../pages/page_two/page_two.dart';
