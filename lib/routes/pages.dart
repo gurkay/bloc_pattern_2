@@ -1,8 +1,8 @@
+import 'package:bloc_pattern_2/404/feature/login/view/login_view.dart';
 import 'package:bloc_pattern_2/pages/home/home_page.dart';
 import 'package:bloc_pattern_2/pages/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
-import '../blocs/bloc_exports.dart';
 import '../pages/initial/initial_page.dart';
 import '../pages/page_one/page_one.dart';
 import '../pages/page_two/page_two.dart';
@@ -44,6 +44,11 @@ class Pages {
       //   page: InitialPage(),
       //   bloc: BlocProvider(create: (_) => NavDrawerBloc()),
       // ),
+      PageEntity(
+        path: AppRoutes.login_view,
+        page: LoginView(),
+        bloc: BlocProvider(create: (_) => LoginBloc()),
+      ),
       PageEntity(
         path: AppRoutes.page_one,
         page: PageOne(),
