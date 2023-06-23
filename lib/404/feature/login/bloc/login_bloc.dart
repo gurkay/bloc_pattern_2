@@ -19,7 +19,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(state.copyWith(isLoading: false));
   }
 
-  Future<void> isSecurePassword() async {
-    emit(state.copyWith(isSecurePassword: false));
+  Future<void> isSecurePassword(bool isSecure) async {
+    emit(state.copyWith(isSecurePassword: isSecure));
   }
 }

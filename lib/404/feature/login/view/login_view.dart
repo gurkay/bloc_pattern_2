@@ -60,22 +60,18 @@ class _LoginViewState extends State<LoginView> {
   }
 }
 
-class EmailTextFormField extends StatefulWidget {
+class EmailTextFormField extends StatelessWidget {
   final TextEditingController controller;
   const EmailTextFormField({Key? key, required this.controller})
       : super(key: key);
 
   @override
-  State<EmailTextFormField> createState() => _EmailTextFormFieldState();
-}
-
-class _EmailTextFormFieldState extends State<EmailTextFormField> {
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: PagePadding.all(),
       child: TextFormField(
-        controller: widget.controller,
+        autovalidateMode: AutovalidateMode.always,
+        controller: controller,
         decoration: const InputDecoration(
           border: UnderlineInputBorder(),
           hintText: 'e-mail',
@@ -93,26 +89,14 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
   }
 }
 
-class PasswordTextFormField extends StatefulWidget {
+class PasswordTextFormField extends StatelessWidget {
   final TextEditingController controller;
   const PasswordTextFormField({
     super.key,
     required this.controller,
   });
 
-  @override
-  State<PasswordTextFormField> createState() => _PasswordTextFormFieldState();
-}
-
-class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
   final _obsureText = '*';
-  bool _isSecure = true;
-
-  void _changeLoading() {
-    setState(() {
-      _isSecure = !_isSecure;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,16 +105,30 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           return TextFormField(
-            controller: widget.controller,
+            autovalidateMode: AutovalidateMode.always,
+            controller: controller,
             autofillHints: const [AutofillHints.password],
             keyboardType: TextInputType.visiblePassword,
-            obscureText: _isSecure,
+            obscureText: !state.isSecurePassword,
             obscuringCharacter: _obsureText,
             decoration: InputDecoration(
-              border: const UnderlineInputBorder(),
-              hintText: 'password',
-              suffix: _onVisiblityIcon(),
-            ),
+                border: const UnderlineInputBorder(),
+                hintText: 'password',
+                suffix: IconButton(
+                  onPressed: () {
+                    context
+                        .read<LoginBloc>()
+                        .isSecurePassword(!state.isSecurePassword);
+                  },
+                  icon: AnimatedCrossFade(
+                    firstChild: const Icon(Icons.visibility_outlined),
+                    secondChild: const Icon(Icons.visibility_off_outlined),
+                    duration: const Duration(microseconds: 200),
+                    crossFadeState: state.isSecurePassword
+                        ? CrossFadeState.showFirst
+                        : CrossFadeState.showSecond,
+                  ),
+                )),
             validator: (value) {
               if (value!.isEmpty ||
                   !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$')
@@ -142,19 +140,6 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
             },
           );
         },
-      ),
-    );
-  }
-
-  IconButton _onVisiblityIcon() {
-    return IconButton(
-      onPressed: _changeLoading,
-      icon: AnimatedCrossFade(
-        firstChild: const Icon(Icons.visibility_outlined),
-        secondChild: const Icon(Icons.visibility_off_outlined),
-        duration: const Duration(microseconds: 200),
-        crossFadeState:
-            _isSecure ? CrossFadeState.showFirst : CrossFadeState.showSecond,
       ),
     );
   }
