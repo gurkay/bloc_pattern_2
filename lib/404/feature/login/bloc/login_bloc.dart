@@ -18,4 +18,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         'login_bloc ::: checkUser ::: after 2 second ::: email: $email, password: $password');
     emit(state.copyWith(isLoading: false));
   }
+
+  Future<void> isSecurePassword() async {
+    emit(state.copyWith(isSecurePassword: false));
+  }
 }

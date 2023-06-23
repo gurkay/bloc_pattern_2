@@ -118,25 +118,29 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
   Widget build(BuildContext context) {
     return Padding(
       padding: PagePadding.all(),
-      child: TextFormField(
-        controller: widget.controller,
-        autofillHints: const [AutofillHints.password],
-        keyboardType: TextInputType.visiblePassword,
-        obscureText: _isSecure,
-        obscuringCharacter: _obsureText,
-        decoration: InputDecoration(
-          border: const UnderlineInputBorder(),
-          hintText: 'password',
-          suffix: _onVisiblityIcon(),
-        ),
-        validator: (value) {
-          if (value!.isEmpty ||
-              !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$')
-                  .hasMatch(value)) {
-            return 'Enter correct password adress';
-          } else {
-            return null;
-          }
+      child: BlocBuilder<LoginBloc, LoginState>(
+        builder: (context, state) {
+          return TextFormField(
+            controller: widget.controller,
+            autofillHints: const [AutofillHints.password],
+            keyboardType: TextInputType.visiblePassword,
+            obscureText: _isSecure,
+            obscuringCharacter: _obsureText,
+            decoration: InputDecoration(
+              border: const UnderlineInputBorder(),
+              hintText: 'password',
+              suffix: _onVisiblityIcon(),
+            ),
+            validator: (value) {
+              if (value!.isEmpty ||
+                  !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$')
+                      .hasMatch(value)) {
+                return 'Enter correct password adress';
+              } else {
+                return null;
+              }
+            },
+          );
         },
       ),
     );
