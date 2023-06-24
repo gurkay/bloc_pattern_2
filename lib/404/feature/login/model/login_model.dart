@@ -16,4 +16,9 @@ class LoginModel {
   Map<String, dynamic>? toJson() {
     return _$LoginModelToJson(this);
   }
+
+  @override
+  String toString() {
+    return 'Login Model : [ email: $email, password: $password ]';
+  }
 }

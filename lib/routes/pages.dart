@@ -49,11 +49,11 @@ class Pages {
       //   page: InitialPage(),
       //   bloc: BlocProvider(create: (_) => NavDrawerBloc()),
       // ),
-      PageEntity(
-        path: AppRoutes.login_view,
-        page: LoginView(),
-        bloc: BlocProvider(create: (_) => LoginBloc()),
-      ),
+      // PageEntity(
+      //   path: AppRoutes.login_view,
+      //   page: LoginView(),
+      //   bloc: BlocProvider(create: (_) => LoginBloc()),
+      // ),
       PageEntity(
         path: AppRoutes.page_one,
         page: PageOne(),
