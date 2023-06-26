@@ -18,7 +18,6 @@ class SubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
-        print('LoginView ::: BlocListener ::: state : ${state.isCompleted}');
         if (state.isCompleted) {
           Navigator.pushNamed(context, AppRoutes.page_two);
         }
@@ -27,9 +26,21 @@ class SubmitButton extends StatelessWidget {
         return ElevatedButton(
           onPressed: () {
             if (_formKey.currentState?.validate() ?? false) {
-              context.read<LoginBloc>().checkUser(
-                    _emailController.text,
-                    _passwordController.text,
+              // context.read<LoginBloc>().checkUser(
+              //       _emailController.text,
+              //       _passwordController.text,
+              //     );
+
+              context
+                  .read<LoginBloc>()
+                  .add(LoginEventIsLoading(isLoading: !state.isLoading));
+              context.read<LoginBloc>().add(
+                    LoginEventSubmitButton(
+                      loginModel: LoginModel(
+                        _emailController.text,
+                        _passwordController.text,
+                      ),
+                    ),
                   );
             }
           },
@@ -78,8 +89,6 @@ class PasswordTextFormField extends StatelessWidget {
     required this.controller,
   });
 
-  final _obsureText = '*';
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -92,15 +101,17 @@ class PasswordTextFormField extends StatelessWidget {
             autofillHints: const [AutofillHints.password],
             keyboardType: TextInputType.visiblePassword,
             obscureText: state.isSecurePassword,
-            obscuringCharacter: _obsureText,
+            obscuringCharacter: '*',
             decoration: InputDecoration(
                 border: const UnderlineInputBorder(),
                 hintText: 'password',
                 suffix: IconButton(
                   onPressed: () {
                     context.read<LoginBloc>().add(
-                        LoginEventIsSecurePasswordShow(
-                            isSecurePassword: !state.isSecurePassword));
+                          LoginEventIsSecurePassword(
+                            isSecurePassword: !state.isSecurePassword,
+                          ),
+                        );
                   },
                   icon: AnimatedCrossFade(
                     firstChild: const Icon(Icons.visibility_outlined),

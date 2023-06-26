@@ -5,6 +5,8 @@ import 'package:bloc_pattern_2/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../model/login_model.dart';
+
 part 'login_view.g.dart';
 
 class LoginView extends StatefulWidget {
@@ -30,7 +32,9 @@ class _LoginViewState extends State<LoginView> {
                   ? const CircularProgressIndicator(
                       color: Colors.amberAccent,
                     )
-                  : const SizedBox();
+                  : state.isCompleted
+                      ? const SizedBox()
+                      : const Text('Giriş');
             },
           ),
         ),

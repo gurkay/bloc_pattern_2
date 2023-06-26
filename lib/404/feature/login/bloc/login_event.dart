@@ -4,26 +4,20 @@ abstract class LoginEvent {
   const LoginEvent();
 }
 
-class LoginEventIsLoadingShow extends LoginEvent {
+class LoginEventIsLoading extends LoginEvent {
   final bool isLoading;
 
-  LoginEventIsLoadingShow({required this.isLoading});
+  LoginEventIsLoading({required this.isLoading});
 }
 
-class LoginEventIsLoadingHidden extends LoginEvent {
-  final bool isLoading;
-
-  LoginEventIsLoadingHidden({required this.isLoading});
-}
-
-class LoginEventIsSecurePasswordShow extends LoginEvent {
+class LoginEventIsSecurePassword extends LoginEvent {
   final bool isSecurePassword;
 
-  LoginEventIsSecurePasswordShow({required this.isSecurePassword});
+  LoginEventIsSecurePassword({required this.isSecurePassword});
 }
 
-class LoginEventIsSecurePasswordHidden extends LoginEvent {
-  final bool isSecurePassword;
+class LoginEventSubmitButton extends LoginEvent {
+  final LoginModel loginModel;
 
-  LoginEventIsSecurePasswordHidden({required this.isSecurePassword});
+  LoginEventSubmitButton({required this.loginModel});
 }

@@ -15,10 +15,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc(ILoginService iLoginService)
       : _iLoginService = iLoginService,
         super(LoginState()) {
-    on<LoginEventIsLoadingShow>(_onIsLoadingShow);
-    on<LoginEventIsLoadingHidden>(_onIsLoadingHidden);
-    on<LoginEventIsSecurePasswordShow>(_onIsSecurePasswordShow);
-    on<LoginEventIsSecurePasswordHidden>(_onIsSecurePasswordHidden);
+    on<LoginEventIsLoading>(_onIsLoading);
+    on<LoginEventIsSecurePassword>(_onIsSecurePassword);
+    on<LoginEventSubmitButton>(_onIsSubmitButton);
   }
 
   Future<void> checkUser(String email, String password) async {
@@ -29,38 +28,43 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     await Future.delayed(const Duration(seconds: 2));
 
-    emit(state.copyWith(isLoading: false));
-
     final response = await _iLoginService.login(state.loginModel!);
 
     if (response != null) {
       emit(state.copyWith(isCompleted: true));
     }
+    emit(state.copyWith(isLoading: false));
   }
 
   Future<void> isSecurePassword(bool isSecure) async {
     emit(state.copyWith(isSecurePassword: isSecure));
   }
 
-  void _onIsLoadingShow(
-      LoginEventIsLoadingShow event, Emitter<LoginState> emit) {
-    emit(LoginStateIsLoadingShow(isLoading: event.isLoading));
+  Future<void> _onIsLoading(
+    LoginEventIsLoading event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(LoginStateIsLoading(isLoading: event.isLoading));
+    await Future.delayed(const Duration(seconds: 2));
+    emit(LoginStateIsLoading(isLoading: !event.isLoading));
   }
 
-  void _onIsLoadingHidden(
-      LoginEventIsLoadingHidden event, Emitter<LoginState> emit) {
-    emit(LoginStateIsLoadingHidden(isLoading: event.isLoading));
+  Future<void> _onIsSubmitButton(
+    LoginEventSubmitButton event,
+    Emitter<LoginState> emit,
+  ) async {
+    final response = await _iLoginService.login(event.loginModel);
+    if (response != null) {
+      emit(
+        LoginStateSubmitButton(isCompleted: !state.isCompleted),
+      );
+    }
   }
 
-  void _onIsSecurePasswordShow(
-      LoginEventIsSecurePasswordShow event, Emitter<LoginState> emit) {
-    emit(LoginStateIsSecurePasswordShow(
-        isSecurePassword: event.isSecurePassword));
-  }
-
-  void _onIsSecurePasswordHidden(
-      LoginEventIsSecurePasswordHidden event, Emitter<LoginState> emit) {
-    emit(LoginStateIsSecurePasswordHidden(
-        isSecurePassword: event.isSecurePassword));
+  void _onIsSecurePassword(
+    LoginEventIsSecurePassword event,
+    Emitter<LoginState> emit,
+  ) {
+    emit(LoginStateIsSecurePassword(isSecurePassword: event.isSecurePassword));
   }
 }

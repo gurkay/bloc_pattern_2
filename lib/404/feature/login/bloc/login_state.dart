@@ -35,18 +35,16 @@ class LoginState extends Equatable {
       [isLoading, isSecurePassword, loginModel, tokenModel, isCompleted];
 }
 
-class LoginStateIsLoadingShow extends LoginState {
-  LoginStateIsLoadingShow({required super.isLoading});
+class LoginStateIsLoading extends LoginState {
+  LoginStateIsLoading({required super.isLoading});
 }
 
-class LoginStateIsLoadingHidden extends LoginState {
-  LoginStateIsLoadingHidden({required super.isLoading});
+class LoginStateIsSecurePassword extends LoginState {
+  LoginStateIsSecurePassword({required super.isSecurePassword});
 }
 
-class LoginStateIsSecurePasswordShow extends LoginState {
-  LoginStateIsSecurePasswordShow({required super.isSecurePassword});
-}
-
-class LoginStateIsSecurePasswordHidden extends LoginState {
-  LoginStateIsSecurePasswordHidden({required super.isSecurePassword});
+class LoginStateSubmitButton extends LoginState {
+  LoginStateSubmitButton({
+    required super.isCompleted,
+  });
 }
