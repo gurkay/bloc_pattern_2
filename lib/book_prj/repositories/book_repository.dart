@@ -1,6 +1,6 @@
 import '../db/i_database.dart';
 import '../model/book.dart';
-import 'i_book_repository.dart';
+import '../interfaces/i_book_repository.dart';
 
 class BookRepository implements IBookRepository {
   final IDatabase _db;

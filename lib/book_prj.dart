@@ -1,7 +1,7 @@
+import 'package:bloc_pattern_2/book_prj/controllers/book_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'book_prj/controller/home_controller.dart';
 import 'book_prj/model/book.dart';
 
 class BookPrj extends StatelessWidget {
@@ -19,7 +19,7 @@ class BookPrj extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  final HomeController _homeController = HomeController();
+  final BookController _bookController = BookController();
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -33,17 +33,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
-      _Form(widget._homeController, _refreshList),
-      _BookTable(widget._homeController, _refreshList)
+      _Form(widget._bookController, _refreshList),
+      _BookTable(widget._bookController, _refreshList)
     ]);
   }
 }
 
 class _Form extends StatefulWidget {
-  final HomeController _homeController;
+  final BookController _bookController;
   final VoidCallback _refreshList;
 
-  _Form(this._homeController, this._refreshList);
+  _Form(this._bookController, this._refreshList);
 
   @override
   _FormState createState() => _FormState();
@@ -103,7 +103,7 @@ class _FormState extends State<_Form> {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      await widget._homeController.addBook(
+                      await widget._bookController.addBook(
                         Book(
                           '0',
                           _titleFieldController.text,
@@ -125,15 +125,15 @@ class _FormState extends State<_Form> {
 }
 
 class _BookTable extends StatelessWidget {
-  final HomeController _homeController;
+  final BookController _bookController;
   final VoidCallback _refreshList;
 
-  _BookTable(this._homeController, this._refreshList);
+  _BookTable(this._bookController, this._refreshList);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Book>>(
-        future: _homeController.getAllBooks(),
+        future: _bookController.getAllBooks(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: Text('Loading..'));
@@ -147,8 +147,8 @@ class _BookTable extends StatelessWidget {
 
   List<DataColumn> _createBookTableColumns() {
     return [
-      const DataColumn(label: Text('ID')),
       const DataColumn(label: Text('Book')),
+      const DataColumn(label: Text('Year')),
       const DataColumn(label: Text('Action')),
     ];
   }
@@ -156,12 +156,12 @@ class _BookTable extends StatelessWidget {
   List<DataRow> _createBookTableRows(List<Book> books) {
     return books
         .map((book) => DataRow(cells: [
-              DataCell(Text('#${book.id}')),
-              DataCell(Text('${book.title} (${book.year.toString()})')),
+              DataCell(Text(book.title)),
+              DataCell(Text(book.year.toString())),
               DataCell(IconButton(
                 icon: const Icon(Icons.delete),
                 onPressed: () async {
-                  await _homeController.removeBook(book.id.toString());
+                  await _bookController.removeBook(book.id.toString());
                   _refreshList();
                 },
               )),
