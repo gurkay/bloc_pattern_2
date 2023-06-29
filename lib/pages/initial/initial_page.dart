@@ -40,14 +40,14 @@ class _InitialPageState extends State<InitialPage> {
         print(state.status);
         switch (state.status) {
           case AuthenticationStatus.authenticated:
-            Navigator.pushNamed(context, AppRoutes.home);
+            Navigator.pushNamed(context, AppRoutes.HOME);
           case AuthenticationStatus.unauthenticated:
             _navigator.pushAndRemoveUntil<void>(
               LoginPage.route(),
               (route) => false,
             );
           case AuthenticationStatus.unknown:
-            Navigator.pushNamed(context, AppRoutes.page_two);
+            Navigator.pushNamed(context, AppRoutes.PAGE_TWO);
             break;
         }
       },

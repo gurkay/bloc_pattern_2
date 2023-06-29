@@ -16,7 +16,7 @@ class PageOne extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () {
             initialPageBloc.add(FirstInitialPageEvent());
-            Navigator.pushNamed(context, AppRoutes.tasks_screen);
+            Navigator.pushNamed(context, AppRoutes.TASKS_SCREEN);
           },
           child: const Text('Go Tasks'),
         ),

@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc_exports.dart';
+import '../../models/user.dart';
+import '../../repositories/authentication/authentication_repository.dart';
+import '../../repositories/user/user_repository.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
@@ -42,8 +45,6 @@ class AuthenticationBloc
         return emit(const AuthenticationState.unauthenticated());
       case AuthenticationStatus.authenticated:
         final user = await _tryGetUser();
-        print(
-            'AuthenticationBloc ::: case AuthenticationStatus.authenticated ::: $user');
         return emit(
           user != null
               ? AuthenticationState.authenticated(user)

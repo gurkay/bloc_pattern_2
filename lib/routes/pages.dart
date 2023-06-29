@@ -55,24 +55,24 @@ class Pages {
       //   bloc: BlocProvider(create: (_) => LoginBloc()),
       // ),
       PageEntity(
-        path: AppRoutes.page_one,
+        path: AppRoutes.PAGE_ONE,
         page: PageOne(),
         bloc: BlocProvider(create: (_) => PageOneBloc()),
       ),
       PageEntity(
-        path: AppRoutes.page_two,
+        path: AppRoutes.PAGE_TWO,
         page: PageTwo(),
         bloc: BlocProvider(create: (_) => PageTwoBloc()),
       ),
       PageEntity(
-        path: AppRoutes.tasks_screen,
+        path: AppRoutes.TASKS_SCREEN,
         page: TasksScreen(),
         bloc: BlocProvider(create: (_) => TasksBloc()),
       ),
     ];
   }
 
-  static List<dynamic> Blocer(BuildContext context) {
+  static List<dynamic> blocer(BuildContext context) {
     List<dynamic> blocerList = <dynamic>[];
     for (var blocer in Routes()) {
       blocerList.add(blocer.bloc);
@@ -93,28 +93,28 @@ class Pages {
         );
       }
 
-      if (settings.name == AppRoutes.splash_page) {
+      if (settings.name == AppRoutes.SPLASH_PAGE) {
         return MaterialPageRoute<void>(
           builder: (_) => SplashPage(),
           settings: settings,
         );
       }
 
-      if (settings.name == AppRoutes.page_one) {
+      if (settings.name == AppRoutes.PAGE_ONE) {
         return MaterialPageRoute<void>(
           builder: (_) => PageOne(),
           settings: settings,
         );
       }
 
-      if (settings.name == AppRoutes.page_two) {
+      if (settings.name == AppRoutes.PAGE_TWO) {
         return MaterialPageRoute<void>(
           builder: (_) => PageTwo(),
           settings: settings,
         );
       }
 
-      if (settings.name == AppRoutes.tasks_screen) {
+      if (settings.name == AppRoutes.TASKS_SCREEN) {
         return MaterialPageRoute<void>(
           builder: (_) => TasksScreen(),
           settings: settings,

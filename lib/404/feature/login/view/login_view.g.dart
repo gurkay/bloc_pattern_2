@@ -19,7 +19,7 @@ class SubmitButton extends StatelessWidget {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.isCompleted) {
-          Navigator.pushNamed(context, AppRoutes.page_two);
+          Navigator.pushNamed(context, AppRoutes.PAGE_TWO);
         }
       },
       builder: (context, state) {

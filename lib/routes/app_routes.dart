@@ -1,16 +1,16 @@
 class AppRoutes {
   static const INITIAL = '/';
-  static const home = '/home';
-  static const home_detail = '/home_detail';
-  static const sing_in = '/sing_in';
-  static const sing_up = '/sing_up';
-  static const tasks_screen = '/tasks_screen';
-  static const page_one = '/page_one';
-  static const page_two = '/page_two';
-  static const page_three = '/page_three';
-  static const page_four = '/page_four';
-  static const page_five = '/page_five';
-  static const page_six = '/page_six';
-  static const splash_page = '/splash_page';
-  static const login_view = '/login_view';
+  static const HOME = '/home';
+  static const HOME_DETAIL = '/home_detail';
+  static const SINGIN = '/singin';
+  static const SINGUP = '/singup';
+  static const TASKS_SCREEN = '/tasks_screen';
+  static const PAGE_ONE = '/page_one';
+  static const PAGE_TWO = '/page_two';
+  static const PAGE_THREE = '/page_three';
+  static const PAGE_FOUR = '/page_four';
+  static const PAGE_FIVE = '/page_five';
+  static const PAGE_SIX = '/page_six';
+  static const SPLASH_PAGE = '/splash_page';
+  static const LOGIN_VIEW = '/login_view';
 }

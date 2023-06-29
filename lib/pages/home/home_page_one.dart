@@ -14,7 +14,7 @@ class HomePageOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [...Pages.Blocer(context)],
+      providers: [...Pages.blocer(context)],
       child: Scaffold(
         appBar: AppBar(title: const Text('Home Page One')),
         body: Center(

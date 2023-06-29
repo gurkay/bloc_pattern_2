@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   pageOneBloc.add(NavigateToPageOneEvent());
-                  Navigator.pushNamed(context, AppRoutes.page_one);
+                  Navigator.pushNamed(context, AppRoutes.PAGE_ONE);
                 },
                 child: const Text('Go Page One'),
               ),
@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.tasks_screen);
+                  Navigator.pushNamed(context, AppRoutes.TASKS_SCREEN);
                 },
                 child: const Text('Go Tasks'),
               ),

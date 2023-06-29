@@ -1,12 +1,12 @@
 part of 'login_bloc.dart';
 
-class LoginState extends Equatable {
+abstract class LoginState extends Equatable {
   final bool isLoading;
   final bool isSecurePassword;
   final LoginModel? loginModel;
   final TokenModel? tokenModel;
   final bool isCompleted;
-  LoginState({
+  const LoginState({
     this.isLoading = false,
     this.isSecurePassword = true,
     this.loginModel,
@@ -14,37 +14,32 @@ class LoginState extends Equatable {
     this.isCompleted = false,
   });
 
-  LoginState copyWith({
-    bool? isLoading,
-    bool? isSecurePassword,
-    LoginModel? loginModel,
-    TokenModel? tokenModel,
-    bool? isCompleted,
-  }) {
-    return LoginState(
-      isLoading: isLoading ?? false,
-      isSecurePassword: isSecurePassword ?? true,
-      loginModel: loginModel ?? this.loginModel,
-      tokenModel: tokenModel ?? this.tokenModel,
-      isCompleted: isCompleted ?? false,
-    );
-  }
-
   @override
   List<Object?> get props =>
       [isLoading, isSecurePassword, loginModel, tokenModel, isCompleted];
 }
 
-class LoginStateIsLoading extends LoginState {
-  LoginStateIsLoading({required super.isLoading});
+final class LoginStateInitial extends LoginState {}
+
+final class LoginStateIsLoading extends LoginState {
+  const LoginStateIsLoading({required super.isLoading});
+
+  @override
+  String toString() => 'LoginStateIsLoading';
 }
 
-class LoginStateIsSecurePassword extends LoginState {
-  LoginStateIsSecurePassword({required super.isSecurePassword});
+final class LoginStateIsSecurePassword extends LoginState {
+  const LoginStateIsSecurePassword({required super.isSecurePassword});
+
+  @override
+  String toString() => 'LoginStateIsSecurePassword';
 }
 
-class LoginStateSubmitButton extends LoginState {
-  LoginStateSubmitButton({
+final class LoginStateSubmitButton extends LoginState {
+  const LoginStateSubmitButton({
     required super.isCompleted,
   });
+
+  @override
+  String toString() => 'LoginStateSubmitButton';
 }

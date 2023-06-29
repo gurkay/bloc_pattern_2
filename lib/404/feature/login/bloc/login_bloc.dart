@@ -14,30 +14,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final ILoginService _iLoginService;
   LoginBloc(ILoginService iLoginService)
       : _iLoginService = iLoginService,
-        super(LoginState()) {
+        super(LoginStateInitial()) {
     on<LoginEventIsLoading>(_onIsLoading);
     on<LoginEventIsSecurePassword>(_onIsSecurePassword);
     on<LoginEventSubmitButton>(_onIsSubmitButton);
-  }
-
-  Future<void> checkUser(String email, String password) async {
-    emit(state.copyWith(
-      isLoading: true,
-      loginModel: LoginModel(email, password),
-    ));
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    final response = await _iLoginService.login(state.loginModel!);
-
-    if (response != null) {
-      emit(state.copyWith(isCompleted: true));
-    }
-    emit(state.copyWith(isLoading: false));
-  }
-
-  Future<void> isSecurePassword(bool isSecure) async {
-    emit(state.copyWith(isSecurePassword: isSecure));
   }
 
   Future<void> _onIsLoading(
@@ -56,7 +36,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final response = await _iLoginService.login(event.loginModel);
     if (response != null) {
       emit(
-        LoginStateSubmitButton(isCompleted: !state.isCompleted),
+        LoginStateSubmitButton(isCompleted: true),
       );
     }
   }

@@ -14,7 +14,7 @@ class PageTwo extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, AppRoutes.tasks_screen);
+            Navigator.pushNamed(context, AppRoutes.TASKS_SCREEN);
           },
           child: const Text('Go Tasks'),
         ),

@@ -25,7 +25,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [...Pages.Blocer(context)],
+      providers: [...Pages.blocer(context)],
       child: MaterialApp(
         title: 'Flutter Timer',
         theme: ThemeData(
