@@ -1,13 +1,15 @@
 part of 'authentication_bloc.dart';
 
-sealed class AuthenticationEvent {
-  const AuthenticationEvent();
+abstract class AuthEvent {
+  const AuthEvent();
 }
 
-final class _AuthenticationStatusChanged extends AuthenticationEvent {
-  const _AuthenticationStatusChanged(this.status);
+final class AuthEventStatusChanged extends AuthEvent {
+  final AuthStatus status;
 
-  final AuthenticationStatus status;
+  AuthEventStatusChanged(this.status);
 }
 
-final class AuthenticationLogoutRequested extends AuthenticationEvent {}
+final class AuthEventLogoutRequested extends AuthEvent {
+  AuthEventLogoutRequested();
+}
