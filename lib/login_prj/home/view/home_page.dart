@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 context
                     .read<AuthenticationBloc>()
-                    .add(AuthenticationLogoutRequested());
+                    .add(AuthEventLogoutRequested());
               },
             ),
           ],

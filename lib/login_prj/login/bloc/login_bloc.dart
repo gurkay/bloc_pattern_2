@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 import '../../repositories/authentication/authentication_repository.dart';
+import '../models/email.dart';
 import '../models/password.dart';
 import '../models/username.dart';
 
@@ -16,11 +17,25 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   })  : _authenticationRepository = authenticationRepository,
         super(const LoginState()) {
     on<LoginUsernameChanged>(_onUsernameChanged);
+    on<LoginEmailChanged>(_onEmailChanged);
     on<LoginPasswordChanged>(_onPasswordChanged);
     on<LoginSubmitted>(_onSubmitted);
   }
 
   final AuthenticationRepository _authenticationRepository;
+
+  void _onEmailChanged(
+    LoginEmailChanged event,
+    Emitter<LoginState> emit,
+  ) {
+    final email = Email.dirty(event.email);
+    emit(
+      state.copyWith(
+        email: email,
+        isValid: Formz.validate([state.password, email]),
+      ),
+    );
+  }
 
   void _onUsernameChanged(
     LoginUsernameChanged event,
@@ -56,7 +71,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       try {
         await _authenticationRepository.logIn(
-          username: state.username.value,
+          email: state.email.value,
           password: state.password.value,
         );
         emit(state.copyWith(status: FormzSubmissionStatus.success));
