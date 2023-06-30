@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bloc_pattern_2/404/feature/login/service/login_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,6 +27,7 @@ class AuthenticationBloc extends Bloc<AuthEvent, AuthState> {
 
   final AuthenticationRepository _authenticationRepository;
   final UserRepository _userRepository;
+
   late StreamSubscription<AuthStatus> _authenticationStatusSubscription;
 
   @override
