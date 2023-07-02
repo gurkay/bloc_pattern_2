@@ -28,3 +28,12 @@ final class LoginPasswordChanged extends LoginEvent {
 final class LoginSubmitted extends LoginEvent {
   const LoginSubmitted();
 }
+
+final class LoginEventIsSecurePassword extends LoginEvent {
+  final bool isSecurePassword;
+
+  const LoginEventIsSecurePassword({required this.isSecurePassword});
+
+  @override
+  List<Object> get props => [isSecurePassword];
+}

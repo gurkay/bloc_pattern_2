@@ -18,9 +18,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEmailChanged>(_onEmailChanged);
     on<LoginPasswordChanged>(_onPasswordChanged);
     on<LoginSubmitted>(_onSubmitted);
+    on<LoginEventIsSecurePassword>(_onIsSecurePassword);
   }
 
   final AuthenticationRepository _authenticationRepository;
+
+  void _onIsSecurePassword(
+    LoginEventIsSecurePassword event,
+    Emitter<LoginState> emit,
+  ) {
+    emit(state.copyWith(isSecurePassword: event.isSecurePassword));
+  }
 
   void _onEmailChanged(
     LoginEmailChanged event,

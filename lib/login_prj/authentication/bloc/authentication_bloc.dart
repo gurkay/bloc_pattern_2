@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bloc_pattern_2/404/feature/login/service/login_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

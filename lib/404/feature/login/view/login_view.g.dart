@@ -103,25 +103,26 @@ class PasswordTextFormField extends StatelessWidget {
             obscureText: state.isSecurePassword,
             obscuringCharacter: '*',
             decoration: InputDecoration(
-                border: const UnderlineInputBorder(),
-                hintText: 'password',
-                suffix: IconButton(
-                  onPressed: () {
-                    context.read<LoginBloc>().add(
-                          LoginEventIsSecurePassword(
-                            isSecurePassword: !state.isSecurePassword,
-                          ),
-                        );
-                  },
-                  icon: AnimatedCrossFade(
-                    firstChild: const Icon(Icons.visibility_outlined),
-                    secondChild: const Icon(Icons.visibility_off_outlined),
-                    duration: const Duration(microseconds: 200),
-                    crossFadeState: !state.isSecurePassword
-                        ? CrossFadeState.showFirst
-                        : CrossFadeState.showSecond,
-                  ),
-                )),
+              border: const UnderlineInputBorder(),
+              hintText: 'password',
+              suffix: IconButton(
+                onPressed: () {
+                  context.read<LoginBloc>().add(
+                        LoginEventIsSecurePassword(
+                          isSecurePassword: !state.isSecurePassword,
+                        ),
+                      );
+                },
+                icon: AnimatedCrossFade(
+                  firstChild: const Icon(Icons.visibility_outlined),
+                  secondChild: const Icon(Icons.visibility_off_outlined),
+                  duration: const Duration(microseconds: 200),
+                  crossFadeState: !state.isSecurePassword
+                      ? CrossFadeState.showFirst
+                      : CrossFadeState.showSecond,
+                ),
+              ),
+            ),
             validator: (value) {
               if (value!.isEmpty) {
                 //||!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$').hasMatch(value)) {

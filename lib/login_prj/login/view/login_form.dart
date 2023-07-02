@@ -61,17 +61,38 @@ class _PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
-      buildWhen: (previous, current) => previous.password != current.password,
+      buildWhen: (previous, current) =>
+          previous.password != current.password ||
+          previous.isSecurePassword != current.isSecurePassword,
       builder: (context, state) {
         return TextField(
           key: const Key('loginForm_passwordInput_textField'),
           onChanged: (password) =>
               context.read<LoginBloc>().add(LoginPasswordChanged(password)),
-          obscureText: true,
+          keyboardType: TextInputType.visiblePassword,
+          obscureText: !state.isSecurePassword,
+          obscuringCharacter: '*',
           decoration: InputDecoration(
             labelText: 'password',
             errorText:
                 state.password.displayError != null ? 'invalid password' : null,
+            suffix: IconButton(
+              onPressed: () {
+                context.read<LoginBloc>().add(
+                      LoginEventIsSecurePassword(
+                        isSecurePassword: !state.isSecurePassword,
+                      ),
+                    );
+              },
+              icon: AnimatedCrossFade(
+                firstChild: const Icon(Icons.visibility_outlined),
+                secondChild: const Icon(Icons.visibility_off_outlined),
+                duration: const Duration(microseconds: 200),
+                crossFadeState: state.isSecurePassword
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
+              ),
+            ),
           ),
         );
       },
