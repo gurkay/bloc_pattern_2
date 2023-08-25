@@ -5,6 +5,7 @@ import 'package:bloc_pattern_2/bacik/101/container_sized_box_learn.dart';
 import 'package:bloc_pattern_2/bacik/101/custom_widget_learn.dart';
 import 'package:bloc_pattern_2/bacik/101/icon_learn_view.dart';
 import 'package:bloc_pattern_2/bacik/101/indicator_learn.dart';
+import 'package:bloc_pattern_2/bacik/101/list_tile_learn.dart';
 import 'package:bloc_pattern_2/bacik/101/padding_learn.dart';
 import 'package:bloc_pattern_2/bacik/101/scaffold_learn_view.dart';
 import 'package:bloc_pattern_2/bacik/101/stateless_learn.dart';
@@ -27,23 +28,28 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Test',
       theme: ThemeData.dark().copyWith(
-          appBarTheme: const AppBarTheme(
-            centerTitle: true,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            systemOverlayStyle: SystemUiOverlayStyle.light,
-          ),
-          cardTheme: const CardTheme(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(4.0),
-              ),
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+        ),
+        listTileTheme: ListTileThemeData(contentPadding: EdgeInsets.zero),
+        cardTheme: const CardTheme(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(4.0),
             ),
           ),
-          primaryColor: Colors.amber,
-          primaryColorDark: Colors.blueAccent,
-          primaryColorLight: Colors.lightBlue),
-      home: IndicatorLearn(),
+        ),
+        primaryColor: Colors.amber,
+        primaryColorDark: Colors.blueAccent,
+        primaryColorLight: Colors.lightBlue,
+        progressIndicatorTheme: const ProgressIndicatorThemeData(
+          color: Colors.red,
+        ),
+      ),
+      home: ListTileLearn(),
     );
   }
 }
