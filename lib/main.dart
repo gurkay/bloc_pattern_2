@@ -1,17 +1,7 @@
-import 'package:bloc_pattern_2/bacik/101/app_bar_view.dart';
-import 'package:bloc_pattern_2/bacik/101/button_learn.dart';
-import 'package:bloc_pattern_2/bacik/101/card_learn.dart';
-import 'package:bloc_pattern_2/bacik/101/container_sized_box_learn.dart';
-import 'package:bloc_pattern_2/bacik/101/custom_widget_learn.dart';
-import 'package:bloc_pattern_2/bacik/101/icon_learn_view.dart';
-import 'package:bloc_pattern_2/bacik/101/indicator_learn.dart';
-import 'package:bloc_pattern_2/bacik/101/list_tile_learn.dart';
-import 'package:bloc_pattern_2/bacik/101/padding_learn.dart';
-import 'package:bloc_pattern_2/bacik/101/scaffold_learn_view.dart';
-import 'package:bloc_pattern_2/bacik/101/stateless_learn.dart';
-import 'package:bloc_pattern_2/bacik/101/text_learn_view.dart';
-import 'package:bloc_pattern_2/bacik/demos/note_view.dart';
-
+import 'package:bloc_pattern_2/bacik/101/list_view_learn.dart';
+import 'package:bloc_pattern_2/bacik/demos/basic_demo_father.dart';
+import 'package:bloc_pattern_2/bacik/demos/color_demo_view.dart';
+import 'package:bloc_pattern_2/bacik/demos/color_life_cycle_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -27,12 +17,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Test',
-      theme: ThemeData.dark().copyWith(
+      theme: ThemeData.light().copyWith(
         appBarTheme: const AppBarTheme(
-          centerTitle: true,
+          centerTitle: false,
           backgroundColor: Colors.transparent,
+          foregroundColor: Colors.purple,
           elevation: 0,
-          systemOverlayStyle: SystemUiOverlayStyle.light,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
         listTileTheme: ListTileThemeData(contentPadding: EdgeInsets.zero),
         cardTheme: const CardTheme(
@@ -49,7 +40,7 @@ class MyApp extends StatelessWidget {
           color: Colors.red,
         ),
       ),
-      home: ListTileLearn(),
+      home: BasicDemoFather(),
     );
   }
 }
