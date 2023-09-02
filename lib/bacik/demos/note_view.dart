@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../core/image_items.dart';
+import '../core/png_image.dart';
+
 class NoteView extends StatelessWidget {
   const NoteView({super.key});
   final _title = 'Create your first note';
@@ -115,26 +118,4 @@ class PaddingItems {
   static const EdgeInsets horizontalPadding =
       EdgeInsets.symmetric(horizontal: 20);
   static const EdgeInsets verticalPadding = EdgeInsets.symmetric(vertical: 20);
-}
-
-class ImageItems {
-  final String appleBookWitoutPath = 'ic_apple_with_scholl';
-}
-
-class PngImage extends StatelessWidget {
-  const PngImage({
-    super.key,
-    required this.name,
-  });
-  final String name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.asset(
-      _nameWithPath,
-      fit: BoxFit.cover,
-    );
-  }
-
-  String get _nameWithPath => 'assets/png/$name.png';
 }
