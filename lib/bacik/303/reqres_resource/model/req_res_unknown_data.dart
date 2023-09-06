@@ -1,28 +1,45 @@
-class ReqResUnknownData {
-  int? id;
-  String? name;
-  int? year;
-  String? color;
-  String? pantoneValue;
+import 'package:json_annotation/json_annotation.dart';
 
-  ReqResUnknownData(
-      {this.id, this.name, this.year, this.color, this.pantoneValue});
+part 'req_res_unknown_data.g.dart';
 
-  ReqResUnknownData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    year = json['year'];
-    color = json['color'];
-    pantoneValue = json['pantone_value'];
+@JsonSerializable()
+class ReqResUnknownResourceModel {
+  final List<ReqResUnknownData>? data;
+
+  ReqResUnknownResourceModel({this.data});
+
+  factory ReqResUnknownResourceModel.fromJson(Map<String, dynamic> json) {
+    return _$ReqResUnknownResourceModelFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = id;
-    data['name'] = name;
-    data['year'] = year;
-    data['color'] = color;
-    data['pantone_value'] = pantoneValue;
-    return data;
+    return _$ReqResUnknownResourceModelToJson(this);
+  }
+}
+
+@JsonSerializable()
+class ReqResUnknownData {
+  final int? id;
+  final String? name;
+  final int? year;
+  final String? color;
+  final String? pantoneValue;
+  final double? price;
+
+  ReqResUnknownData({
+    this.id,
+    this.name,
+    this.year,
+    this.color,
+    this.pantoneValue,
+    this.price,
+  });
+
+  factory ReqResUnknownData.fromJson(Map<String, dynamic> json) {
+    return _$ReqResUnknownDataFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() {
+    return _$ReqResUnknownDataToJson(this);
   }
 }
