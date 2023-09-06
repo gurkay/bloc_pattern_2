@@ -16,7 +16,6 @@ class LottieLearn extends StatefulWidget {
 class _LottieLearnState extends State<LottieLearn>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
-  bool _isDarkTheme = true;
 
   @override
   void initState() {
@@ -46,11 +45,11 @@ class _LottieLearnState extends State<LottieLearn>
 
     return InkWell(
       onTap: () {
+        print(state.name);
         state.isDarkTheme
             ? themeManager.lightTheme(context)
             : themeManager.darkTheme(context);
-        _isDarkTheme = !_isDarkTheme;
-        _animationController.animateTo(_isDarkTheme ? 1.00 : 0.50);
+        _animationController.animateTo(state.isDarkTheme ? 0.50 : 1.00);
       },
       child: LottiePaths.animation_theme_button.toWidget(
         false,

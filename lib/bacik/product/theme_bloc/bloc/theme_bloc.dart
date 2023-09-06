@@ -88,7 +88,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc()
       : super(
           ThemeState(
-            'initial',
+            DarkThemeEvent().getName(),
             DarkThemeEvent().themeData,
             true,
           ),
