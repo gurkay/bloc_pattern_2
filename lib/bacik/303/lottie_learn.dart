@@ -1,4 +1,5 @@
 import 'package:bloc_pattern_2/bacik/product/constants/duration_items.dart';
+import 'package:bloc_pattern_2/bacik/product/theme_bloc/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +16,7 @@ class LottieLearn extends StatefulWidget {
 class _LottieLearnState extends State<LottieLearn>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
-  bool _isLight = false;
+  bool _isDarkTheme = true;
 
   _lightTheme(context) {
     BlocProvider.of<ThemeBloc>(context).add(LightThemeEvent());
@@ -37,31 +38,28 @@ class _LottieLearnState extends State<LottieLearn>
     return Scaffold(
       appBar: AppBar(
         actions: [
-          InkWell(
-            onTap: () {
-              _isLight ? _lightTheme(context) : _darkTheme(context);
-              _animationController.animateTo(_isLight ? 0.50 : 1);
-              _isLight = !_isLight;
-            },
-            child: LottiePaths.animation_theme_button.toWidget(
-              false,
-              _animationController,
-            ),
-          ),
+          _inWellThemeButton(context),
         ],
       ),
       body: Center(
-        child: InkWell(
-          onTap: () {
-            _isLight ? _lightTheme(context) : _darkTheme(context);
-            _animationController.animateTo(_isLight ? 0.50 : 1);
-            _isLight = !_isLight;
-          },
-          child: LottiePaths.animation_theme_button.toWidget(
-            false,
-            _animationController,
-          ),
-        ),
+        child: _inWellThemeButton(context),
+      ),
+    );
+  }
+
+  InkWell _inWellThemeButton(BuildContext context) {
+    IThemeManager iThemeManager = ThemeManager();
+    return InkWell(
+      onTap: () {
+        _isDarkTheme
+            ? iThemeManager.lightTheme(context)
+            : iThemeManager.darkTheme(context);
+        _isDarkTheme = !_isDarkTheme;
+        _animationController.animateTo(_isDarkTheme ? 1.00 : 0.50);
+      },
+      child: LottiePaths.animation_theme_button.toWidget(
+        false,
+        _animationController,
       ),
     );
   }

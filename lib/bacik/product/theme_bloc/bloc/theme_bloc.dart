@@ -60,7 +60,7 @@ class LightThemeEvent extends ThemeEvent {
   final ThemeData themeData = ThemeData(
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
-      primary: Color(0xFFE6E3AC),
+      primary: Color.fromARGB(255, 219, 218, 209),
       onPrimary: Colors.black,
       secondary: Color(0xFFE6E3AC),
       onSecondary: Colors.black,
@@ -89,7 +89,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       : super(
           ThemeState(
             'initial',
-            LightThemeEvent().themeData,
+            DarkThemeEvent().themeData,
           ),
         ) {
     on<DarkThemeEvent>(
