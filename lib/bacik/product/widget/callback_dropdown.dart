@@ -31,11 +31,7 @@ class _CallbackDropdownState extends State<CallbackDropdown> {
           child: Text(user.name),
         );
       }).toList(),
-      onChanged: (CallBackUser? callBackUser) {
-        setState(() {
-          _user = callBackUser;
-        });
-      },
+      onChanged: _changeUpdateCallBackUser,
     );
   }
 }

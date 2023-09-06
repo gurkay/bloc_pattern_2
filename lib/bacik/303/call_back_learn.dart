@@ -1,4 +1,6 @@
+import 'package:bloc_pattern_2/bacik/product/widget/answer_button.dart';
 import 'package:bloc_pattern_2/bacik/product/widget/callback_dropdown.dart';
+import 'package:bloc_pattern_2/bacik/product/widget/loading_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +24,24 @@ class _CallBackLearnState extends State<CallBackLearn> {
               if (kDebugMode) {
                 print(callBackUser);
               }
-              _user = callBackUser;
+              setState(() {
+                _user = callBackUser;
+              });
             },
           ),
           Center(
             child: Text(_user?.name ?? CallBackUser.dummyUsers.first.name),
+          ),
+          AnswerButton(
+            onNumber: (number) {
+              return number % 2 == 0;
+            },
+          ),
+          LoadingButton(
+            title: 'Save',
+            onPressed: () async {
+              await Future.delayed(Duration(seconds: 5));
+            },
           ),
         ],
       ),

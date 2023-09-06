@@ -72,8 +72,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # Recommended lints for Flutter apps, packages, and plugins to 
+  # encourage good coding practices
   flutter_lints: ^2.0.0
-  json_serializable: ^6.7.0
+
+  # Automatically generate code for converting to and from JSON 
+  # by annotating Dart classes.
+  json_serializable: ^6.7.1
+
+  #A build system for Dart code generation and modular compilation.
   build_runner: ^2.4.5
 
 flutter:
