@@ -7,8 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/login_model.dart';
 
-part 'login_view.g.dart';
-
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
@@ -56,3 +54,12 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 }
+
+PasswordTextFormField({required TextEditingController controller}) {}
+
+SubmitButton(
+    {required GlobalKey<FormState> formKey,
+    required TextEditingController emailController,
+    required TextEditingController passwordController}) {}
+
+EmailTextFormField({required TextEditingController controller}) {}
