@@ -90,11 +90,12 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
           ThemeState(
             'initial',
             DarkThemeEvent().themeData,
+            true,
           ),
         ) {
-    on<DarkThemeEvent>(
-        (event, emit) => emit(ThemeState(event.getName(), event.getTheme())));
-    on<LightThemeEvent>(
-        (event, emit) => emit(ThemeState(event.getName(), event.getTheme())));
+    on<DarkThemeEvent>((event, emit) =>
+        emit(ThemeState(event.getName(), event.getTheme(), true)));
+    on<LightThemeEvent>((event, emit) =>
+        emit(ThemeState(event.getName(), event.getTheme(), false)));
   }
 }

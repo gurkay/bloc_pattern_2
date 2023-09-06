@@ -18,14 +18,6 @@ class _LottieLearnState extends State<LottieLearn>
   late AnimationController _animationController;
   bool _isDarkTheme = true;
 
-  _lightTheme(context) {
-    BlocProvider.of<ThemeBloc>(context).add(LightThemeEvent());
-  }
-
-  _darkTheme(context) {
-    BlocProvider.of<ThemeBloc>(context).add(DarkThemeEvent());
-  }
-
   @override
   void initState() {
     super.initState();
@@ -35,25 +27,28 @@ class _LottieLearnState extends State<LottieLearn>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          _inWellThemeButton(context),
-        ],
-      ),
-      body: Center(
-        child: _inWellThemeButton(context),
-      ),
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            actions: [
+              _inWellThemeButton(context, state),
+            ],
+          ),
+          body: _inWellThemeButton(context, state),
+        );
+      },
     );
   }
 
-  InkWell _inWellThemeButton(BuildContext context) {
-    IThemeManager iThemeManager = ThemeManager();
+  InkWell _inWellThemeButton(BuildContext context, ThemeState state) {
+    IThemeManager themeManager = ThemeManager();
+
     return InkWell(
       onTap: () {
-        _isDarkTheme
-            ? iThemeManager.lightTheme(context)
-            : iThemeManager.darkTheme(context);
+        state.isDarkTheme
+            ? themeManager.lightTheme(context)
+            : themeManager.darkTheme(context);
         _isDarkTheme = !_isDarkTheme;
         _animationController.animateTo(_isDarkTheme ? 1.00 : 0.50);
       },
