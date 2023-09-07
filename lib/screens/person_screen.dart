@@ -1,8 +1,8 @@
 import 'package:bloc_pattern_2/bacik/product/models/dummy_families.dart';
 import 'package:flutter/material.dart';
 
-import '../product/models/family.dart';
-import '../product/models/person.dart';
+import '../../bacik/product/models/family.dart';
+import '../../bacik/product/models/person.dart';
 
 class PersonScreen extends StatelessWidget {
   const PersonScreen({super.key, required this.fid, required this.pid});

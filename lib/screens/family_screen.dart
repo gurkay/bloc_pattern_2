@@ -2,7 +2,7 @@ import 'package:bloc_pattern_2/bacik/product/models/dummy_families.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../product/models/person.dart';
+import '../../bacik/product/models/person.dart';
 
 class FamilyScreen extends StatelessWidget {
   const FamilyScreen({super.key, required this.fid});
@@ -18,7 +18,7 @@ class FamilyScreen extends StatelessWidget {
             ListTile(
               title: Text(entry.value.name),
               onTap: () => context.go(context.namedLocation(
-                'person',
+                'person_screen',
                 pathParameters: <String, String>{'fid': fid, 'pid': entry.key},
                 queryParameters: <String, String>{'qid': 'quid'},
               )),
