@@ -15,13 +15,23 @@ class LottieLearn extends StatefulWidget {
 
 class _LottieLearnState extends State<LottieLearn>
     with TickerProviderStateMixin {
-  late AnimationController _animationController;
+  late AnimationController _animationThemeController;
+  late AnimationController _animationDotsController;
+
+  final double _darkThemeButtonValue = 1.00;
+  final double _lightThemeButtonValue = 0.50;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-        vsync: this, duration: DurationItems.durationNormal());
+    _animationThemeController = AnimationController(
+      vsync: this,
+      duration: DurationItems.durationNormal(),
+    );
+  }
+
+  void _animateThemeTo(double value) {
+    _animationThemeController.animateTo(value);
   }
 
   @override
@@ -34,7 +44,9 @@ class _LottieLearnState extends State<LottieLearn>
               _inWellThemeButton(context, state),
             ],
           ),
-          body: _inWellThemeButton(context, state),
+          body: Center(
+            child: LottiePaths.animation_dots_loader.toDotsWidget(true),
+          ),
         );
       },
     );
@@ -45,15 +57,21 @@ class _LottieLearnState extends State<LottieLearn>
 
     return InkWell(
       onTap: () {
-        print(state.name);
-        state.isDarkTheme
-            ? themeManager.lightTheme(context)
-            : themeManager.darkTheme(context);
-        _animationController.animateTo(state.isDarkTheme ? 0.50 : 1.00);
+        switch (state.themeName) {
+          case 'initial':
+            themeManager.lightTheme(context);
+            _animateThemeTo(_lightThemeButtonValue);
+          case 'dark':
+            themeManager.lightTheme(context);
+            _animateThemeTo(_lightThemeButtonValue);
+          case 'light':
+            themeManager.darkTheme(context);
+            _animateThemeTo(_darkThemeButtonValue);
+        }
       },
       child: LottiePaths.animation_theme_button.toWidget(
         false,
-        _animationController,
+        _animationThemeController,
       ),
     );
   }

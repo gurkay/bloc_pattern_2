@@ -45,13 +45,15 @@ class DarkThemeEvent extends ThemeEvent {
     ),
   );
 
+  final String themeName = 'dark';
+
   @override
-  String getName() {
-    return 'dark';
+  String getThemeName() {
+    return themeName;
   }
 
   @override
-  ThemeData getTheme() {
+  ThemeData getThemeData() {
     return themeData;
   }
 }
@@ -73,13 +75,15 @@ class LightThemeEvent extends ThemeEvent {
     ),
   );
 
+  final String themeName = 'light';
+
   @override
-  String getName() {
-    return 'light';
+  String getThemeName() {
+    return themeName;
   }
 
   @override
-  ThemeData getTheme() {
+  ThemeData getThemeData() {
     return themeData;
   }
 }
@@ -88,14 +92,13 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc()
       : super(
           ThemeState(
-            DarkThemeEvent().getName(),
-            DarkThemeEvent().themeData,
-            true,
+            'initial',
+            DarkThemeEvent().getThemeData(),
           ),
         ) {
     on<DarkThemeEvent>((event, emit) =>
-        emit(ThemeState(event.getName(), event.getTheme(), true)));
+        emit(ThemeState(event.getThemeName(), event.getThemeData())));
     on<LightThemeEvent>((event, emit) =>
-        emit(ThemeState(event.getName(), event.getTheme(), false)));
+        emit(ThemeState(event.getThemeName(), event.getThemeData())));
   }
 }

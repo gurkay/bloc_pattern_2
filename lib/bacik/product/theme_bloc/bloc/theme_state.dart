@@ -1,9 +1,8 @@
 part of 'theme_bloc.dart';
 
 class ThemeState {
-  String name;
-  ThemeData changeTheme;
-  bool isDarkTheme;
+  String themeName;
+  ThemeData themeData;
 
-  ThemeState(this.name, this.changeTheme, this.isDarkTheme);
+  ThemeState(this.themeName, this.themeData);
 }

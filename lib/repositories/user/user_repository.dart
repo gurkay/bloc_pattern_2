@@ -11,7 +11,7 @@ class UserRepository {
     if (_user != null) return _user;
     return Future.delayed(
       const Duration(milliseconds: 300),
-      () => _user = User(GUIDGen.generate()),
+      () => _user = User(GUIDGen.generate(), ''),
     );
   }
 

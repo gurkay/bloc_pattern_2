@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 enum LottiePaths {
-  // ignore: constant_identifier_names
   animation_theme_button,
+  animation_dots_loader,
 }
 
 extension LottiePathsExtension on LottiePaths {
@@ -16,6 +16,13 @@ extension LottiePathsExtension on LottiePaths {
       toPath(),
       repeat: repeat,
       controller: controller,
+    );
+  }
+
+  Widget toDotsWidget(bool repeat) {
+    return LottieBuilder.asset(
+      toPath(),
+      repeat: repeat,
     );
   }
 }

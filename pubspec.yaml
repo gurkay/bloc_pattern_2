@@ -70,7 +70,13 @@ dependencies:
   # This package is a pure Dart implementation of a Lottie player.
   lottie: ^2.6.0
 
+  # Collections and utilities functions and classes
+  # related to collections.
+  collection: ^1.17.1
 
+  # A declarative router for Flutter based on Navigation 2
+  # supporting deep linking, data-driven routes and more
+  go_router: ^10.1.2
 
 dev_dependencies:
   flutter_test:
