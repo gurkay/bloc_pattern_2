@@ -3,8 +3,6 @@ import 'package:bloc_pattern_2/constants/title_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../bacik/product/models/family.dart';
-
 class HomeScreenRouteLearn extends StatelessWidget {
   const HomeScreenRouteLearn({super.key});
 
@@ -34,6 +32,16 @@ class HomeScreenRouteLearn extends StatelessWidget {
                 );
               },
               child: const Text('Dynamic Text Field'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.go(
+                  context.namedLocation(
+                    'timer_view',
+                  ),
+                );
+              },
+              child: const Text('Timer'),
             ),
           ],
         ),

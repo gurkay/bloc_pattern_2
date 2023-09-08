@@ -1,5 +1,6 @@
 // main libraries
-import 'package:bloc_pattern_2/widgets/dynamic_widgets/dynamic_text_field.dart';
+import 'package:bloc_pattern_2/views/timer/timer_view.dart';
+import 'package:bloc_pattern_2/widgets/dynamic_widgets/text_field/dynamic_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -50,6 +51,12 @@ class GoRouteUtulity {
             name: 'dynamic_text_field',
             path: 'dynamic_text_field',
             function: (context, state) => const DynamicTextField(),
+          ),
+          GoRoute(
+            name: 'timer_view',
+            path: 'timer_view',
+            builder: (BuildContext context, GoRouterState state) =>
+                const TimerView(),
           ),
         ],
       ),
