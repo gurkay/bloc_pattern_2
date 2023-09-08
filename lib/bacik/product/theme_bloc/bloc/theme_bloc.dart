@@ -36,7 +36,7 @@ class DarkThemeEvent extends ThemeEvent {
       onPrimary: Colors.black,
       secondary: Colors.grey,
       onSecondary: Colors.black,
-      error: Colors.grey,
+      error: Colors.red,
       onError: Colors.black,
       background: Colors.grey,
       onBackground: Colors.black,
