@@ -44,36 +44,14 @@ class InitialEvent extends TextFieldBlocEvent {
   }
 }
 
-class AddTextFieldEvent extends InitialEvent {
-  void _onGetFriendsTextFields(
-      AddTextFieldEvent event, Emitter<TextFieldBlocState> emit) {
-    for (int i = 0; i < friendsList.length; i++) {
-      friendsTextFields.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Row(
-            children: [
-              Expanded(child: _onFriendTextFields(i)),
-              const SizedBox(
-                width: 16,
-              ),
-              // we need add button at last friends row
-              _onAddRemoveButton(i == friendsList.length - 1, i),
-            ],
-          ),
-        ),
-      );
-    }
-    emit(TextFieldBlocState().copyWith(friendsTextFields: friendsTextFields));
-  }
-
+class AddTextFieldEvent extends TextFieldBlocEvent {
   Widget _onAddRemoveButton(bool add, int index) {
     return InkWell(
       onTap: () {
         if (add) {
-          friendsList.insert(0, '');
+          InitialEvent().friendsList.insert(0, '');
         } else {
-          friendsList.removeAt(index);
+          InitialEvent().friendsList.removeAt(index);
         }
       },
       child: Container(
@@ -90,28 +68,59 @@ class AddTextFieldEvent extends InitialEvent {
       ),
     );
   }
+
+  @override
+  GlobalKey<FormState> getFormKey() {
+    return InitialEvent().getFormKey();
+  }
+
+  @override
+  List<String> getFriendsList() {
+    return InitialEvent().friendsList;
+  }
+
+  @override
+  TextEditingController getNameController() {
+    return InitialEvent().nameController;
+  }
 }
 
 class TextFieldBloc extends Bloc<TextFieldBlocEvent, TextFieldBlocState> {
   TextFieldBloc()
       : super(
           TextFieldBlocState(
-            InitialEvent().formKey,
-            InitialEvent().nameController,
-            InitialEvent().friendsList,
-            InitialEvent().friendsTextFields,
+            formKey: InitialEvent().formKey,
+            nameController: InitialEvent().nameController,
+            friendsList: InitialEvent().friendsList,
+            friendsTextFields: InitialEvent().friendsTextFields,
+            testString: 'initial',
           ),
         ) {
-    on<InitialEvent>(
-      (event, emit) => emit(
-        TextFieldBlocState(
-          event.getFormKey(),
-          event.getNameController(),
-          event.getFriendsList(),
-          const [],
-        ),
-      ),
-    );
     on<AddTextFieldEvent>(_onGetFriendsTextFields);
+  }
+
+  void _onGetFriendsTextFields(
+      AddTextFieldEvent event, Emitter<TextFieldBlocState> emit) {
+    emit(TextFieldBlocState().copyWith(testString: 'Test'));
+    for (int i = 0; i < InitialEvent().friendsList.length; i++) {
+      InitialEvent().friendsTextFields.add(
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Row(
+                children: [
+                  Expanded(child: InitialEvent()._onFriendTextFields(i)),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  // we need add button at last friends row
+                  AddTextFieldEvent()._onAddRemoveButton(
+                      i == InitialEvent().friendsList.length - 1, i),
+                ],
+              ),
+            ),
+          );
+    }
+    emit(TextFieldBlocState()
+        .copyWith(friendsTextFields: InitialEvent().friendsTextFields));
   }
 }

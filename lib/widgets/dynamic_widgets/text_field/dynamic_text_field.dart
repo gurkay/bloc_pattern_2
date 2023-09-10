@@ -90,9 +90,15 @@ class _DynamicTextFieldState extends State<DynamicTextField>
                           const SizedBox(width: 5),
                           ElevatedButton(
                             onPressed: () {
+                              print(textFieldBlocState.testString);
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState?.save();
                               }
+
+                              textFieldBlocContext.read<TextFieldBloc>().add(
+                                    AddTextFieldEvent(),
+                                  );
+                              print(textFieldBlocState.testString);
                             },
                             child: const Text('Submit'),
                           ),
