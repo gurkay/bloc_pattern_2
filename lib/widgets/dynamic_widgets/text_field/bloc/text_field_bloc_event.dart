@@ -4,5 +4,4 @@ abstract class TextFieldBlocEvent {
   GlobalKey<FormState> getFormKey();
   TextEditingController getNameController();
   List<String> getFriendsList();
-  List<Widget> getFriendsTextFields();
 }

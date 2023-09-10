@@ -1,4 +1,3 @@
-import 'package:bloc_pattern_2/bacik/product/models/dummy_families.dart';
 import 'package:bloc_pattern_2/constants/title_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

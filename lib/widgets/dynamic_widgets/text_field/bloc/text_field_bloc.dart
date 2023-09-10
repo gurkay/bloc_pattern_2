@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,8 +30,23 @@ class InitialEvent extends TextFieldBlocEvent {
     nameController.text = text;
   }
 
-  @override
-  List<Widget> getFriendsTextFields() {
+  Widget _onFriendTextFields(int i) {
+    setNameController(friendsList[i]);
+    return TextFormField(
+      controller: nameController,
+      onChanged: (v) => friendsList[i] = v,
+      decoration: const InputDecoration(hintText: 'Enter your friend\'s name'),
+      validator: (v) {
+        if (v!.trim().isEmpty) return 'Please enter something';
+        return null;
+      },
+    );
+  }
+}
+
+class AddTextFieldEvent extends InitialEvent {
+  void _onGetFriendsTextFields(
+      AddTextFieldEvent event, Emitter<TextFieldBlocState> emit) {
     for (int i = 0; i < friendsList.length; i++) {
       friendsTextFields.add(
         Padding(
@@ -48,10 +64,9 @@ class InitialEvent extends TextFieldBlocEvent {
         ),
       );
     }
-    return friendsTextFields;
+    emit(TextFieldBlocState().copyWith(friendsTextFields: friendsTextFields));
   }
 
-  /// add / remove button
   Widget _onAddRemoveButton(bool add, int index) {
     return InkWell(
       onTap: () {
@@ -75,45 +90,6 @@ class InitialEvent extends TextFieldBlocEvent {
       ),
     );
   }
-
-  Widget _onFriendTextFields(int i) {
-    setNameController(friendsList[i]);
-    return TextFormField(
-      controller: nameController,
-      onChanged: (v) => friendsList[i] = v,
-      decoration: const InputDecoration(hintText: 'Enter your friend\'s name'),
-      validator: (v) {
-        if (v!.trim().isEmpty) return 'Please enter something';
-        return null;
-      },
-    );
-  }
-}
-
-class AddTextFieldEvent extends TextFieldBlocEvent {
-  @override
-  GlobalKey<FormState> getFormKey() {
-    // TODO: implement getFormKey
-    throw UnimplementedError();
-  }
-
-  @override
-  List<String> getFriendsList() {
-    // TODO: implement getFriendsList
-    throw UnimplementedError();
-  }
-
-  @override
-  List<Widget> getFriendsTextFields() {
-    // TODO: implement getFriendsTextFields
-    throw UnimplementedError();
-  }
-
-  @override
-  TextEditingController getNameController() {
-    // TODO: implement getNameController
-    throw UnimplementedError();
-  }
 }
 
 class TextFieldBloc extends Bloc<TextFieldBlocEvent, TextFieldBlocState> {
@@ -126,11 +102,16 @@ class TextFieldBloc extends Bloc<TextFieldBlocEvent, TextFieldBlocState> {
             InitialEvent().friendsTextFields,
           ),
         ) {
-    on<InitialEvent>((event, emit) => emit(TextFieldBlocState(
+    on<InitialEvent>(
+      (event, emit) => emit(
+        TextFieldBlocState(
           event.getFormKey(),
           event.getNameController(),
           event.getFriendsList(),
-          event.getFriendsTextFields(),
-        )));
+          const [],
+        ),
+      ),
+    );
+    on<AddTextFieldEvent>(_onGetFriendsTextFields);
   }
 }
